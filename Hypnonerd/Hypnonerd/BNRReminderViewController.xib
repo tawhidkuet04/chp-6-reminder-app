@@ -28,7 +28,7 @@
                     </date>
                 </datePicker>
                 <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4M8-HJ-hDI">
-                    <rect key="frame" x="65" y="556" width="285" height="40"/>
+                    <rect key="frame" x="45" y="478" width="285" height="40"/>
                     <color key="backgroundColor" red="0.23911305114902548" green="0.61378969830775987" blue="0.83264714479446411" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <fontDescription key="fontDescription" type="system" pointSize="23"/>
                     <state key="normal" title="Remind me!!">

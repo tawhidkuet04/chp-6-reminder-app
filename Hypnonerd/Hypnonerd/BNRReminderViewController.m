@@ -19,6 +19,21 @@
 @implementation BNRReminderViewController
 -(IBAction)addReminder:(id)sender{
     //// reminder setup local notificaiton method
+    NSDate *date = self.datePicker.date;
+    NSDate *curreentDate = [NSDate date];
+    NSLog(@"cur %@",curreentDate);
+    NSLog(@"normal %@",date);
+    NSComparisonResult  result = [ curreentDate compare:date];
+    if (result == NSOrderedDescending){
+        
+        NSString *title = @"Wrong Date";
+        NSString *msg = @"Try Again!!!!!";
+        NSString *oktext = @"OK" ;
+        UIAlertController *alert = [ UIAlertController alertControllerWithTitle:title message:msg preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *okButton = [ UIAlertAction actionWithTitle:oktext style:UIAlertActionStyleCancel handler:nil];
+        [ alert addAction:okButton];
+        [ self presentViewController:alert animated:YES completion:nil];
+    }else {
     if(isGrantedNotificationAccess){
         if (@available(iOS 10.0, *)) {
             UNUserNotificationCenter *center=[UNUserNotificationCenter currentNotificationCenter];
@@ -27,6 +42,7 @@
             mucontent.body=@"Hypnotize me!!!!!!";
             mucontent.sound=[UNNotificationSound defaultSound];
             NSDate *date = self.datePicker.date;
+  
             NSDateComponents *triggerDate = [[NSCalendar currentCalendar]
                                              components:NSCalendarUnitYear +
                                              NSCalendarUnitMonth + NSCalendarUnitDay +
@@ -51,15 +67,14 @@
         } else {
             // Fallback on earlier versions
         }
-        
-    }
+    }}
   
     
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
     isGrantedNotificationAccess = false ;
-    // Local Notificaiton permission 
+    // Local Notificaiton permission
     UNUserNotificationCenter *center = [ UNUserNotificationCenter currentNotificationCenter];
     UNAuthorizationOptions options = UNAuthorizationOptionAlert + UNAuthorizationOptionSound ;
     [ center requestAuthorizationWithOptions:options completionHandler:^(BOOL granted, NSError *_Nullable error){

@@ -20,20 +20,7 @@
 -(IBAction)addReminder:(id)sender{
     //// reminder setup local notificaiton method
     NSDate *date = self.datePicker.date;
-    NSDate *curreentDate = [NSDate date];
-    NSLog(@"cur %@",curreentDate);
-    NSLog(@"normal %@",date);
-    NSComparisonResult  result = [ curreentDate compare:date];
-    if (result == NSOrderedDescending){
-        
-        NSString *title = @"Wrong Date";
-        NSString *msg = @"Try Again!!!!!";
-        NSString *oktext = @"OK" ;
-        UIAlertController *alert = [ UIAlertController alertControllerWithTitle:title message:msg preferredStyle:UIAlertControllerStyleAlert];
-        UIAlertAction *okButton = [ UIAlertAction actionWithTitle:oktext style:UIAlertActionStyleCancel handler:nil];
-        [ alert addAction:okButton];
-        [ self presentViewController:alert animated:YES completion:nil];
-    }else {
+   
     if(isGrantedNotificationAccess){
         if (@available(iOS 10.0, *)) {
             UNUserNotificationCenter *center=[UNUserNotificationCenter currentNotificationCenter];
@@ -67,12 +54,13 @@
         } else {
             // Fallback on earlier versions
         }
-    }}
+    }
   
     
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.datePicker.minimumDate =[ NSDate dateWithTimeIntervalSinceNow:60];
     isGrantedNotificationAccess = false ;
     // Local Notificaiton permission
     UNUserNotificationCenter *center = [ UNUserNotificationCenter currentNotificationCenter];
@@ -84,6 +72,11 @@
     
     
     // Do any additional setup after loading the view from its nib.
+}
+-(void) viewDidAppear:(BOOL)animated{
+    //[super viewDidAppear:animated];
+    
+
 }
 -(instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil{
     self = [ super initWithNibName:nibNameOrNil bundle:nibBundleOrNil] ;
